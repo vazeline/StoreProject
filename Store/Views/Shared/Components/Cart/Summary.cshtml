@@ -1,0 +1,13 @@
+﻿
+@using StoreWeb.HtmlHelpers
+@model Store.Domain.Entities.Cart
+@{
+    Layout = null;
+}
+<div id="cart">
+    <span class="caption"><b>В корзине:</b>
+        @Model.Lines.Sum(items => items.Quantity) item(s)
+        @Model.ComputeTotalValue().ToString("c")
+    </span>
+    @Html.ActionLink("К оплате", "Index", "Cart", new { returnUrl = ViewBag.requestUri })
+</div>

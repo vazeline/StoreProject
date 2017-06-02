@@ -1,0 +1,12 @@
+﻿@using StoreWeb.HtmlHelpers
+@model Store.Domain.Entities.Product
+<div class="item">
+    <h3>@Model.Name</h3>
+    @Model.Description
+    <form asp-controller="Cart" asp-action="AddToCart" method="post">
+        <input type="hidden" asp-for="@Model.ProductID" />
+        @Html.Hidden("returnUrl", ViewBag.requestUri as Uri)
+        <input type="submit" value="+ добавить в корзину"/>
+    </form>
+        <h4>@Model.Price.ToString("c")</h4>
+</div>

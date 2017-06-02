@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Store.Domain.Entities.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+    @using (Html.BeginForm("Index", "Edit", FormMethod.Post, new { id = "compareForm" }))
+    {
+        <table class="Grid">
+            <tr>
+                <th></th>
+                <th>ID</th>
+                <th>Name</th>
+                <th class="NumericCol">Price</th>
+            </tr>
+            @Html.DisplayForModel()
+            
+        </table>
+        <input type="submit" value="Удалить" />
+    }
+
+<p>@Html.ActionLink("Добавить новый товар", "Create")</p>

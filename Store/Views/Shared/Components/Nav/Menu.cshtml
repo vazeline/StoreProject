@@ -1,0 +1,21 @@
+﻿@model IEnumerable<string>
+
+@{
+    Layout = null;   
+}
+
+@Html.ActionLink("Home", "List", "Product")
+@Html.ActionLink("Edit", "Index", "Edit")
+
+@foreach (var cat in Model)
+{
+    <span>|</span>
+    if (cat != ViewBag.SelectedCategory)
+    {
+        @Html.RouteLink(cat, new {controller = "Product", action = "List", category = cat, page = 1})
+    }
+    else
+    {
+        <span>@cat</span>
+    }
+}

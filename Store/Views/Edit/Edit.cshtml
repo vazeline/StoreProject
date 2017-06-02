@@ -1,0 +1,15 @@
+﻿@model Store.Domain.Entities.Product
+
+@{
+    ViewBag.Title = "Редактировать " + @Model.Name;
+    Layout = "~/Views/Shared/_EditLayout.cshtml";
+}
+
+<h2>Edit @Model.Name</h2>
+@using (Html.BeginForm("Edit", "Edit", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.EditorForModel()
+
+    <input type="submit" value="Сохранить" />
+    @Html.ActionLink("Отмена", "Index")
+}

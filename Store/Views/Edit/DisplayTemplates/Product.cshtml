@@ -1,0 +1,11 @@
+﻿@model Store.Domain.Entities.Product
+
+<tr>
+    <td>
+        @Html.HiddenFor(x => x.ProductID)
+        @Html.CheckBoxFor(x => x.Checked)
+    </td>
+    <td>@Model.ProductID</td>
+    <td>@Html.ActionLink(Model.Name, "Edit", new { Model.ProductID })</td>
+    <td class="NumericCol">@Model.Price.ToString("c")</td>
+</tr>

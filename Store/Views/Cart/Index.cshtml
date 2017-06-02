@@ -1,0 +1,55 @@
+﻿@using Store.Domain.Entities
+@model StoreWeb.Models.CartIndexViewModel
+@{
+    ViewBag.Title = "Корзина";
+}
+<h2>Корзина</h2>
+<table style="width: 90%; text-align: center">
+    <thead>
+        <tr>
+            <th style="text-align: center">Количество</th>
+            <th style="text-align: left">Товар</th>
+            <th style="text-align: right">Цена ед.</th>
+            <th style="text-align: right">Сумма</th>
+        </tr>
+    </thead>
+    <tbody>
+    @if (Model?.Cart?.Lines != null)
+    {
+        foreach (CartLine line in Model.Cart.Lines)
+        {
+            <tr>
+                <td style="text-align: center">@line.Quantity</td>
+                <td style="text-align: left">@line.Product.Name</td>
+                <td style="text-align: right">@line.Product.Price.ToString("c")</td>
+                <td style="text-align: right">@((line.Quantity * line.Product.Price).ToString("c"))
+                </td>
+                <td>
+
+                    <form asp-controller="Cart" asp-action="RemoveFromCart" method="post">
+                        @*<input type="hidden" asp-for="@line.Product.ProductID" />*@
+                        @Html.Hidden("ProductId", line.Product.ProductID)
+                        @Html.Hidden("ReturnUrl", Model.ReturnUrl)
+                        <input type="submit" class="actionButtons" value="Удалить" />
+                    </form>
+                </td>
+            </tr>
+        }
+    }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" style="text-align: right">Итого:</td>
+            <td style="text-align: right">
+                @if (Model.Cart != null)
+                {
+                    Model.Cart.ComputeTotalValue().ToString("c");
+                }
+            </td>
+        </tr>
+    </tfoot>
+</table>
+<p style="text-align: center" class="actionButtons">
+    <a href="@Model.ReturnUrl" >Продолжить покупки</a>
+    @Html.ActionLink("К оплате", "Checkout")
+</p>
